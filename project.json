@@ -1,0 +1,19 @@
+{
+    "debugMode"     : 1,
+    "frameRate"     : 60,
+    "id"            : "gameCanvas",
+    "renderMode"    : 2,
+    "jsList"        : [
+        "src/Game.vars.js",
+        "src/Game.resources.js",
+        "src/Game.layers.js",
+        "src/Game.scenes.js",
+        "src/GameController.js",
+        "src/components/Background.js",
+        "src/components/Ground.js",
+        "src/components/Bird.js",
+        "src/components/Pipe.js",
+        "src/components/Label.js",
+        "src/components/KeyboardListener.js"
+    ]
+}
