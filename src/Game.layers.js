@@ -9,7 +9,6 @@ Game.layers[1].extend = cc.Layer.extend({
 
 Game.layers[1].start = function( game ){
     //init game res
-    // cc.audioEngine.init();
     var winSize = cc.director.getWinSize();
     var _backgroundLayer = new BackgroundLayer();
     var _groundLayer = new GroundLayer();
@@ -35,8 +34,10 @@ Game.layers[1].start = function( game ){
     // game.addChild(drawNode);
     //
     // var rectColor = cc.color(255, 0, 0);
+
     //game loop
     game.schedule(update);
+    cc.audioEngine.playMusic(Game.def.audio.marios_way_mp3, true);
 
 
 

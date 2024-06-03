@@ -9,8 +9,8 @@ var GameController = cc.Class.extend({
         this._bird = _bird;
         this._pipeLayer = _pipeLayer;
         this._groundLayer = _groundLayer;
-        cc.audioEngine.playMusic(Game.def.audio.marios_way_mp3, true);
     },
+    // handle event on Enter pressed
     onEnterPressed: function() {
         if (Game.contr.gameState === Game.def.gameState.Waiting) {
             this._labelLayer.removeChildByTag("startLabel");

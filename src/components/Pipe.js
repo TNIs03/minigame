@@ -18,13 +18,6 @@ var PipeLayer = cc.Layer.extend({
         var gap = random(Game.def.pipe.gapMin, Game.def.pipe.gapMax);
         var bottomPipe = new pipeSprite(posX, posY, 0, 0, 0);
         var topPipe = new pipeSprite(posX, gap + bottomPipe._getHeight()*bottomPipe.getScale() + posY, 180, 1, 1);
-        // var topPipe = new pipeSprite(posX, 0, 180, 1, 1);
-        // var topPipe = new pipeSprite();
-        console.log(bottomPipe.getPosition(), topPipe.getPosition());
-        // bottomPipe.setPosition(posX, posY);
-        // topPipe.setRotation(180);
-        // topPipe.setPosition(posX, random(320,380) + bottomPipe._getHeight() + posY);
-        // topPipe.setAnchorPoint(1,1);
         this.pipes.push([bottomPipe, topPipe]);
         this.addChild(bottomPipe, 0);
         this.addChild(topPipe, 0);
