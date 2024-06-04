@@ -43,6 +43,7 @@ Game.def = {
         gapMax: 160,
         yMin: -300,
         yMax: -50,
+        moveTime: 0.5,
     },
     gameState: {
         Waiting: 0,
