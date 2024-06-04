@@ -24,18 +24,18 @@ var LabelLayer = cc.Layer.extend({
         this.addChild(this.endLabel, 0);
 
         this.dashLabel = new Label("Dash", 32, winSize, "endLabel", "topleft", false);
-        this.dashLabel.setPositionY(winSize.height - Game.def.textOffset.dashY);
+        this.dashLabel.setPositionY(winSize.height - gameDefine.textOffset.dashY);
         this.addChild(this.dashLabel, 0);
 
         this.powerLabel = new Label("Power", 32, winSize, "endLabel", "topleft", false);
-        this.powerLabel.setPositionY(winSize.height - Game.def.textOffset.powerY);
+        this.powerLabel.setPositionY(winSize.height - gameDefine.textOffset.powerY);
         this.addChild(this.powerLabel, 0);
 
         this.pauseLabel = new Label("Game Paused\nPress P to continue", 32, winSize, "pauseLabel", "center", false);
         this.addChild(this.pauseLabel, 0);
     },
     counting: function () {
-        var countdownTime = Game.def.countdownTime;
+        var countdownTime = gameDefine.countdownTime;
         var countingLabel = this.countingLabel;
         countingLabel.setVisible(true);
         for (let i = countdownTime; i>0; i--) {
@@ -57,9 +57,9 @@ var Label = cc.LabelTTF.extend({
             anchorX: (format === "center" ? 0.5 : format === "topleft" ? 0 : 0),
             anchorY: (format === "center" ? 0.5 : format === "topleft" ? 1 : 0),
             x: format === "center" ? winSize.width / 2 :
-                format === "topleft" ? Game.def.textOffset.topleftX: 0,
-            y: format === "center" ? winSize.height / 2 + Game.def.textOffset.centerY :
-                format === "topleft" ? winSize.height - Game.def.textOffset.topleftY: 0,
+                format === "topleft" ? gameDefine.textOffset.topleftX : 0,
+            y: format === "center" ? winSize.height / 2 + gameDefine.textOffset.centerY :
+                format === "topleft" ? winSize.height - gameDefine.textOffset.topleftY : 0,
             tag: tag,
             visible: visible,
             textAlign: cc.TEXT_ALIGNMENT_CENTER,

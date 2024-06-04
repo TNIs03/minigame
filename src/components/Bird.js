@@ -6,54 +6,64 @@ var Bird = cc.Sprite.extend({
     },
     init: function(winSize) {
         this.initWithFile(Game.res.bird_png);
-        this.setPositionX(Game.def.bird.x);
-        this.setPositionY(Game.def.bird.y);
+        this.setPositionX(gameDefine.bird.x);
+        this.setPositionY(gameDefine.bird.y);
         this.winSize = winSize;
     },
     update: function() {
-        this.setPositionY(this.getPositionY() + Game.contr.velocityY);
-        Game.contr.velocityY -= Game.def.move.gravity;
-        Game.contr.velocityX = (Game.contr.skill.dashTime === 0 ? Game.def.bird.initVelocityX : Game.def.bird.dashVelocityX);
-        this.setScale(Game.contr.skill.powerTime === 0 ? Game.def.bird.initScale : Game.def.bird.powerScale);
+        // update height for bird
+        this.setPositionY(this.getPositionY() + gameVariable.velocityY);
+        gameVariable.velocityY -= gameDefine.move.gravity;
+
+        // update variable if skill is used
+        gameVariable.velocityX = (gameVariable.skill.dashTime === 0 ? gameDefine.bird.initVelocityX : gameDefine.bird.dashVelocityX);
+        this.setScale(gameVariable.skill.powerTime === 0 ? gameDefine.bird.initScale : gameDefine.bird.powerScale);
+
+        // if bird touch ceil
         if (this.getPositionY() > this.winSize.height) this.setPositionY(this.winSize.height);
-        this.setRotation(-Math.atan(Game.contr.velocityY / Game.contr.velocityX) * 180 / Math.PI);
+
+        // change bird rotation base on vy and vx
+        this.setRotation(-Math.atan(gameVariable.velocityY / gameVariable.velocityX) * 180 / Math.PI);
     },
     jump: function() {
-        cc.audioEngine.playEffect(Game.def.audio.jump_wav, false);
-        Game.contr.velocityY = Game.def.move.jumpVelocityY;
+        cc.audioEngine.playEffect(gameDefine.audio.jump_wav, false);
+        gameVariable.velocityY = gameDefine.move.jumpVelocityY;
     },
     reset: function () {
-        this.setPositionX(Game.def.bird.x);
-        this.setPositionY(Game.def.bird.y);
+        this.stopAllActions();
+        this.setPositionX(gameDefine.bird.x);
+        this.setPositionY(gameDefine.bird.y);
         this.setRotation(0);
-        this.setScale(Game.def.bird.initScale);
+        this.setScale(gameDefine.bird.initScale);
     },
+    // reset skill time and cooldown if used
     dash: function () {
-        Game.contr.skill.dashCD = Game.def.skill.initDashCD;
-        Game.contr.skill.dashTime = Game.def.skill.initDashTime;
+        gameVariable.skill.dashCD = gameDefine.skill.initDashCD;
+        gameVariable.skill.dashTime = gameDefine.skill.initDashTime;
     },
     power: function () {
-        Game.contr.skill.powerCD = Game.def.skill.initPowerCD;
-        Game.contr.skill.powerTime = Game.def.skill.initPowerTime;
+        gameVariable.skill.powerCD = gameDefine.skill.initPowerCD;
+        gameVariable.skill.powerTime = gameDefine.skill.initPowerTime;
     },
     getRealBoundingBox: function() {
         var box = this.getBoundingBoxToWorld();
-        if (Game.contr.skill.powerTime === 0) {
-            box.x += Game.def.bird.normalOffset.x;
-            box.y += Game.def.bird.normalOffset.y;
-            box.width -= Game.def.bird.normalOffset.width;
-            box.height -= Game.def.bird.normalOffset.height;
+        if (gameVariable.skill.powerTime === 0) {
+            box.x += gameDefine.bird.normalOffset.x;
+            box.y += gameDefine.bird.normalOffset.y;
+            box.width -= gameDefine.bird.normalOffset.width;
+            box.height -= gameDefine.bird.normalOffset.height;
         }
         else {
-            box.x += Game.def.bird.powerOffset.x;
-            box.y += Game.def.bird.powerOffset.y;
-            box.width -= Game.def.bird.powerOffset.width;
-            box.height -= Game.def.bird.powerOffset.height;
+            box.x += gameDefine.bird.powerOffset.x;
+            box.y += gameDefine.bird.powerOffset.y;
+            box.width -= gameDefine.bird.powerOffset.width;
+            box.height -= gameDefine.bird.powerOffset.height;
         }
         return box;
     }
 });
 
+// sprite for shadow effect when dashing
 var BirdShadow = cc.Sprite.extend({
     _bird: null,
     opa: 0,
@@ -69,10 +79,11 @@ var BirdShadow = cc.Sprite.extend({
         this.offset = offset;
     },
     update: function() {
-        if (Game.contr.skill.dashTime !== 0) {
+        if (gameVariable.skill.dashTime !== 0) {
             this.setOpacity(this.opa);
             this.setPositionX(this._bird.x - this.offset);
             this.setPositionY(this._bird.y);
+            this.setScale(this._bird.getScale());
         }
         else {
             this.setOpacity(0);

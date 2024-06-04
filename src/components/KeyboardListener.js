@@ -17,26 +17,26 @@ var KeyboardListener = cc.Layer.extend({
                 this._gameController.onEnterPressed();
                 break;
             case cc.KEY.w:
-                if (!Game.contr.key.w && !Game.contr.key.up) this._gameController._birdLayer.bird.jump();
-                Game.contr.key.w = true;
+                if (!gameVariable.key.w && !gameVariable.key.up) this._gameController._birdLayer.bird.jump();
+                gameVariable.key.w = true;
                 break;
             case cc.KEY.up:
-                if (!Game.contr.key.w && !Game.contr.key.up) this._gameController._birdLayer.bird.jump();
-                Game.contr.key.up = true;
+                if (!gameVariable.key.w && !gameVariable.key.up) this._gameController._birdLayer.bird.jump();
+                gameVariable.key.up = true;
                 break;
             case cc.KEY.right:
             case cc.KEY.d:
-                if (Game.contr.gameState === Game.def.gameState.Playing && Game.contr.skill.dashCD === 0)
+                if (gameVariable.gameState === gameDefine.gameState.Playing && gameVariable.skill.dashCD === 0)
                     this._gameController._birdLayer.bird.dash();
                 break;
             case cc.KEY.left:
             case cc.KEY.a:
-                if (Game.contr.gameState === Game.def.gameState.Playing && Game.contr.skill.powerCD === 0)
+                if (gameVariable.gameState === gameDefine.gameState.Playing && gameVariable.skill.powerCD === 0)
                     this._gameController._birdLayer.bird.power();
                 break;
             case cc.KEY.p:
-                if (!Game.contr.key.p) this._gameController.pauseHandle();
-                Game.contr.key.p = true;
+                if (!gameVariable.key.p) this._gameController.pauseHandle();
+                gameVariable.key.p = true;
                 break;
             default:
                 break;
@@ -47,13 +47,13 @@ var KeyboardListener = cc.Layer.extend({
         // Handle key release event
         switch (keyCode) {
             case cc.KEY.w:
-                Game.contr.key.w = false;
+                gameVariable.key.w = false;
                 break;
             case cc.KEY.up:
-                Game.contr.key.up = false;
+                gameVariable.key.up = false;
                 break;
             case cc.KEY.p:
-                Game.contr.key.p = false;
+                gameVariable.key.p = false;
                 break;
             default:
                 break;

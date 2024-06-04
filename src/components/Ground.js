@@ -15,8 +15,8 @@ var GroundLayer = cc.Layer.extend({
         this.curGround = this.grs[0];
     },
     update: function() {
-        this.grs[0].setPositionX(this.grs[0].getPositionX() - Game.contr.velocityX);
-        this.grs[1].setPositionX(this.grs[1].getPositionX() - Game.contr.velocityX);
+        this.grs[0].setPositionX(this.grs[0].getPositionX() - gameVariable.velocityX);
+        this.grs[1].setPositionX(this.grs[1].getPositionX() - gameVariable.velocityX);
         if (this.grs[0].x < -this.grWidth) this.grs[0].setPositionX(this.grs[1].getPositionX() + this.grWidth);
         if (this.grs[1].x < -this.grWidth) this.grs[1].setPositionX(this.grs[0].getPositionX() + this.grWidth);
     }

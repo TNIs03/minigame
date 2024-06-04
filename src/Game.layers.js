@@ -12,84 +12,56 @@ Game.layers[1].start = function( game ){
     var winSize = cc.director.getWinSize();
     var _backgroundLayer = new BackgroundLayer();
     var _groundLayer = new GroundLayer();
-    // var _bird = new Bird(winSize);
-    // var _birdShadow1 = new BirdShadow(_bird, 80, 10);
-    // var _birdShadow2 = new BirdShadow(_bird, 60, 20);
     var _birdLayer = new BirdLayer(winSize);
     var _pipeLayer = new PipeLayer();
     var _labelLayer = new LabelLayer(winSize);
     var _gameController = new GameController(_labelLayer, _birdLayer, _pipeLayer, _groundLayer);
     var _keyboardListener = new KeyboardListener(_gameController);
 
-
+    // add all child layers to parent layer
     game.addChild(_keyboardListener);
     game.addChild(_backgroundLayer, -1);
     game.addChild(_groundLayer, 2);
     game.addChild(_pipeLayer, 1);
     game.addChild(_birdLayer, 3);
-    // game.addChild(_birdShadow1, 2);
-    // game.addChild(_birdShadow2, 1);
     game.addChild(_labelLayer, 4);
 
-    // var drawNode = new cc.DrawNode();
-    // game.addChild(drawNode);
-    //
-    // var rectColor = cc.color(255, 0, 0);
+    cc.audioEngine.playMusic(gameDefine.audio.marios_way_mp3, true);
 
     //game loop
     game.schedule(update);
-    cc.audioEngine.playMusic(Game.def.audio.marios_way_mp3, true);
 
 
 
+    // update if called every frame
     function update(dt) {
 
-        // drawBoundingBox(_groundLayer.curGround);
-        if (Game.contr.gameState === Game.def.gameState.Playing || Game.contr.gameState === Game.def.gameState.Waiting
-            || Game.contr.gameState === Game.def.gameState.Counting) {
+        if (gameVariable.gameState === gameDefine.gameState.Playing || gameVariable.gameState === gameDefine.gameState.Waiting
+            || gameVariable.gameState === gameDefine.gameState.Counting) {
             _backgroundLayer.update();
             _groundLayer.update();
         }
         _gameController.update(dt);
 
-        if (Game.contr.gameState === Game.def.gameState.Playing) {
+        if (gameVariable.gameState === gameDefine.gameState.Playing) {
             _birdLayer.update();
-            // _bird.update(dt);
-            // _birdShadow1.update();
-            // _birdShadow2.update();
             _pipeLayer.update();
-            if (Game.contr.gameOver) endGame();
+            if (gameVariable.gameOver) endGame();
         }
-
     }
 
+    // endGame call when game over
     function endGame() {
-        cc.audioEngine.playEffect(Game.def.audio.hurt_wav, false);
+        cc.audioEngine.playEffect(gameDefine.audio.hurt_wav, false);
         var pos = _birdLayer.bird.getPosition();
         var delay = cc.delayTime(0.2);
-        var moveDown = cc.moveTo((pos.y + 30) / 200 * 0.5, pos.x, -30);
+        var moveDown = cc.moveTo((pos.y + 30) / 200 * 0.5, pos.x, gameVariable.skill.powerTime === 0 ? -30 : -100);
         var sequence = cc.sequence(delay, moveDown);
         _birdLayer.bird.runAction(sequence);
-        _labelLayer.endLabel.setString("Game Over\nScore: " + Game.contr.score + "\nPress Enter to play again");
+        _labelLayer.endLabel.setString("Game Over\nScore: " + gameVariable.score + "\nPress Enter to play again");
         _labelLayer.endLabel.setVisible(true);
-        Game.contr.gameState = Game.def.gameState.Ended;
+        gameVariable.gameState = gameDefine.gameState.Ended;
     }
-
-    // function drawBoundingBox(_bird) {
-    //     var boundingBox = _bird.getRealBoundingBox(); // Red color for the bounding box
-    //
-    //     // Draw the bounding box using four lines
-    //     var topLeft = cc.p(boundingBox.x, boundingBox.y + boundingBox.height);
-    //     var topRight = cc.p(boundingBox.x + boundingBox.width, boundingBox.y + boundingBox.height);
-    //     var bottomLeft = cc.p(boundingBox.x, boundingBox.y);
-    //     var bottomRight = cc.p(boundingBox.x + boundingBox.width, boundingBox.y);
-    //
-    //     drawNode.clear();
-    //     drawNode.drawSegment(topLeft, topRight, 1, rectColor);
-    //     drawNode.drawSegment(topRight, bottomRight, 1, rectColor);
-    //     drawNode.drawSegment(bottomRight, bottomLeft, 1, rectColor);
-    //     drawNode.drawSegment(bottomLeft, topLeft, 1, rectColor);
-    // }
 
 };
 

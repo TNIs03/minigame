@@ -4,7 +4,7 @@ Game.scenes[1] = {};
 Game.layers = [];
 Game.layers[1] = {};
 
-Game.def = {
+gameDefine = {
     bird: {
         x: 280,
         y: 320,
@@ -44,6 +44,7 @@ Game.def = {
         yMin: -300,
         yMax: -50,
         moveTime: 0.5,
+        pipeNumber: 10,
     },
     gameState: {
         Waiting: 0,
@@ -75,9 +76,9 @@ Game.def = {
     }
 }
 
-Game.contr = {
+gameVariable = {
     isStarted: false,
-    velocityX: Game.def.bird.initVelocityX,
+    velocityX: gameDefine.bird.initVelocityX,
     velocityY: 0,
     key: {
         enter: false,
@@ -92,11 +93,11 @@ Game.contr = {
     curPipe: 0,
     score: 0,
     gameOver: false,
-    gameState: Game.def.gameState.Waiting,
+    gameState: gameDefine.gameState.Waiting,
     skill: {
-        dashCD: Game.def.skill.initDashCD,
+        dashCD: gameDefine.skill.initDashCD,
         dashTime: 0,
-        powerCD: Game.def.skill.initPowerCD,
+        powerCD: gameDefine.skill.initPowerCD,
         powerTime: 0,
     }
 }

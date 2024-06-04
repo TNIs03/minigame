@@ -6,16 +6,17 @@ var PipeLayer = cc.Layer.extend({
         this.init();
     },
     init: function() {
-        for (let i=0;i<10;i++) {
-            var posX = Game.def.pipe.initPosX + Game.def.pipe.spaceBetween * i
-                + random(Game.def.pipe.spaceRandomMin, Game.def.pipe.spaceRandomMax);
-            var posY = random(Game.def.pipe.yMin, Game.def.pipe.yMax);
+        for (let i=0;i < gameDefine.pipe.pipeNumber; i++) {
+            var posX = gameDefine.pipe.initPosX + gameDefine.pipe.spaceBetween * i
+                + random(gameDefine.pipe.spaceRandomMin, gameDefine.pipe.spaceRandomMax);
+            var posY = random(gameDefine.pipe.yMin, gameDefine.pipe.yMax);
             this.addPipe(posX, posY);
         }
         this.pipeWidth = this.pipes[0][0]._getWidth() * this.pipes[0][0].getScale();
     },
+    // add a new pair of pipes to array and layer
     addPipe: function(posX, posY) {
-        var gap = random(Game.def.pipe.gapMin, Game.def.pipe.gapMax);
+        var gap = random(gameDefine.pipe.gapMin, gameDefine.pipe.gapMax);
         var bottomPipe = new pipeSprite(posX, posY, 0, 0, 0);
         var topPipe = new pipeSprite(posX, gap + bottomPipe._getHeight()*bottomPipe.getScale() + posY, 180, 1, 1);
         this.pipes.push([bottomPipe, topPipe]);
@@ -23,19 +24,20 @@ var PipeLayer = cc.Layer.extend({
         this.addChild(topPipe, 0);
     },
     update: function() {
-        for (let i=0;i<10;i++) {
-            this.pipes[i][0].setPositionX(this.pipes[i][0].getPositionX() - Game.contr.velocityX);
-            this.pipes[i][1].setPositionX(this.pipes[i][1].getPositionX() - Game.contr.velocityX);
+        for (let i=0;i < gameDefine.pipe.pipeNumber;i++) {
+            this.pipes[i][0].setPositionX(this.pipes[i][0].getPositionX() - gameVariable.velocityX);
+            this.pipes[i][1].setPositionX(this.pipes[i][1].getPositionX() - gameVariable.velocityX);
         }
     },
     reset: function () {
-        for (let i=0;i<10;i++) {
+        for (let i=0;i < gameDefine.pipe.pipeNumber;i++) {
             this.removeChild(this.pipes[i][0]);
             this.removeChild(this.pipes[i][1]);
         }
         this.pipes = [];
         this.init();
     },
+    // remove pair of pipes at index
     removePipe: function (index) {
         this.removeChild(this.pipes[index][0]);
         this.removeChild(this.pipes[index][1]);

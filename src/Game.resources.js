@@ -12,6 +12,6 @@ for ( var i in Game.res ) {
     Game.g_resources.push( Game.res[i] );
 }
 
-for (var i in Game.def.audio) {
-    Game.g_resources.push( Game.def.audio[i]);
+for (var i in gameDefine.audio) {
+    Game.g_resources.push( gameDefine.audio[i]);
 }
