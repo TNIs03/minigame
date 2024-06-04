@@ -12,12 +12,13 @@ Game.layers[1].start = function( game ){
     var winSize = cc.director.getWinSize();
     var _backgroundLayer = new BackgroundLayer();
     var _groundLayer = new GroundLayer();
-    var _bird = new Bird(winSize);
-    var _birdShadow1 = new BirdShadow(_bird, 80, 10);
-    var _birdShadow2 = new BirdShadow(_bird, 60, 20);
+    // var _bird = new Bird(winSize);
+    // var _birdShadow1 = new BirdShadow(_bird, 80, 10);
+    // var _birdShadow2 = new BirdShadow(_bird, 60, 20);
+    var _birdLayer = new BirdLayer(winSize);
     var _pipeLayer = new PipeLayer();
     var _labelLayer = new LabelLayer(winSize);
-    var _gameController = new GameController(_labelLayer, _bird, _pipeLayer, _groundLayer);
+    var _gameController = new GameController(_labelLayer, _birdLayer, _pipeLayer, _groundLayer);
     var _keyboardListener = new KeyboardListener(_gameController);
 
 
@@ -25,9 +26,9 @@ Game.layers[1].start = function( game ){
     game.addChild(_backgroundLayer, -1);
     game.addChild(_groundLayer, 2);
     game.addChild(_pipeLayer, 1);
-    game.addChild(_bird, 3);
-    game.addChild(_birdShadow1, 2);
-    game.addChild(_birdShadow2, 1);
+    game.addChild(_birdLayer, 3);
+    // game.addChild(_birdShadow1, 2);
+    // game.addChild(_birdShadow2, 1);
     game.addChild(_labelLayer, 4);
 
     // var drawNode = new cc.DrawNode();
@@ -52,9 +53,10 @@ Game.layers[1].start = function( game ){
         _gameController.update(dt);
 
         if (Game.contr.gameState === Game.def.gameState.Playing) {
-            _bird.update(dt);
-            _birdShadow1.update();
-            _birdShadow2.update();
+            _birdLayer.update();
+            // _bird.update(dt);
+            // _birdShadow1.update();
+            // _birdShadow2.update();
             _pipeLayer.update();
             if (Game.contr.gameOver) endGame();
         }

@@ -17,22 +17,22 @@ var KeyboardListener = cc.Layer.extend({
                 this._gameController.onEnterPressed();
                 break;
             case cc.KEY.w:
-                if (!Game.contr.key.w && !Game.contr.key.up) this._gameController._bird.jump();
+                if (!Game.contr.key.w && !Game.contr.key.up) this._gameController._birdLayer.bird.jump();
                 Game.contr.key.w = true;
                 break;
             case cc.KEY.up:
-                if (!Game.contr.key.w && !Game.contr.key.up) this._gameController._bird.jump();
+                if (!Game.contr.key.w && !Game.contr.key.up) this._gameController._birdLayer.bird.jump();
                 Game.contr.key.up = true;
                 break;
             case cc.KEY.right:
             case cc.KEY.d:
                 if (Game.contr.gameState === Game.def.gameState.Playing && Game.contr.skill.dashCD === 0)
-                    this._gameController._bird.dash();
+                    this._gameController._birdLayer.bird.dash();
                 break;
             case cc.KEY.left:
             case cc.KEY.a:
                 if (Game.contr.gameState === Game.def.gameState.Playing && Game.contr.skill.powerCD === 0)
-                    this._gameController._bird.power();
+                    this._gameController._birdLayer.bird.power();
                 break;
             case cc.KEY.p:
                 if (!Game.contr.key.p) this._gameController.pauseHandle();

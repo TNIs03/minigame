@@ -10,7 +10,7 @@ var Bird = cc.Sprite.extend({
         this.setPositionY(Game.def.bird.y);
         this.winSize = winSize;
     },
-    update: function(dt) {
+    update: function() {
         this.setPositionY(this.getPositionY() + Game.contr.velocityY);
         Game.contr.velocityY -= Game.def.move.gravity;
         Game.contr.velocityX = (Game.contr.skill.dashTime === 0 ? Game.def.bird.initVelocityX : Game.def.bird.dashVelocityX);
@@ -78,4 +78,35 @@ var BirdShadow = cc.Sprite.extend({
             this.setOpacity(0);
         }
     },
+    reset: function () {
+        this.setOpacity(0);
+    }
+})
+
+var BirdLayer = cc.Layer.extend({
+    bird: null,
+    shadows: [],
+    ctor: function (winSize) {
+        this._super();
+        this.init(winSize);
+    },
+    init: function (winSize) {
+        this.bird = new Bird(winSize);
+        var shadow1 = new BirdShadow(this.bird, 80, 10);
+        var shadow2 = new BirdShadow(this.bird, 60, 20);
+        this.shadows.push(shadow1, shadow2);
+        this.addChild(this.bird, 2);
+        this.addChild(shadow1, 1);
+        this.addChild(shadow2, 0);
+    },
+    update: function () {
+        this.bird.update();
+        this.shadows[0].update();
+        this.shadows[1].update();
+    },
+    reset: function () {
+        this.bird.reset();
+        this.shadows[0].reset();
+        this.shadows[1].reset();
+    }
 })

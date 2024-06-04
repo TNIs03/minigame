@@ -1,12 +1,12 @@
 var GameController = cc.Class.extend({
     _labelLayer: null,
-    _bird: null,
+    _birdLayer: null,
     _pipeLayer: null,
     _groundLayer: null,
-    ctor: function(_labelLayer, _bird, _pipeLayer, _groundLayer) {
+    ctor: function(_labelLayer, _birdLayer, _pipeLayer, _groundLayer) {
         // this._super();
         this._labelLayer = _labelLayer;
-        this._bird = _bird;
+        this._birdLayer = _birdLayer;
         this._pipeLayer = _pipeLayer;
         this._groundLayer = _groundLayer;
     },
@@ -43,7 +43,7 @@ var GameController = cc.Class.extend({
     },
     checkCollision: function () {
         var _pipes = this._pipeLayer.pipes;
-        var birdBoundingBox = this._bird.getRealBoundingBox();
+        var birdBoundingBox = this._birdLayer.bird.getRealBoundingBox();
         if(cc.rectIntersectsRect(birdBoundingBox, _pipes[Game.contr.curPipe][0].getBoundingBoxToWorld()) ||
             cc.rectIntersectsRect(birdBoundingBox, _pipes[Game.contr.curPipe][1].getBoundingBoxToWorld())) {
             if (Game.contr.skill.powerTime !== 0) {
@@ -63,7 +63,7 @@ var GameController = cc.Class.extend({
             Game.contr.gameOver = true;
     },
     checkScore: function() {
-        if (this._pipeLayer.pipes[Game.contr.curPipe][0].getPositionX() + this._pipeLayer.pipeWidth < this._bird.getPositionX()) {
+        if (this._pipeLayer.pipes[Game.contr.curPipe][0].getPositionX() + this._pipeLayer.pipeWidth < this._birdLayer.bird.getPositionX()) {
             cc.audioEngine.playEffect(Game.def.audio.score_wav, false);
             Game.contr.score++;
             this._labelLayer.scoreLabel.setString(Game.contr.score.toString());
@@ -87,7 +87,7 @@ var GameController = cc.Class.extend({
         Game.contr.score = 0;
         Game.contr.gameOver = false;
         this._pipeLayer.reset();
-        this._bird.reset();
+        this._birdLayer.reset();
         this._labelLayer.scoreLabel.setString("0");
         this._labelLayer.scoreLabel.setVisible(false);
         this._labelLayer.dashLabel.setVisible(false);
