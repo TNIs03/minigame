@@ -45,6 +45,13 @@ var GameController = cc.Class.extend({
         var _pipes = this._pipeLayer.pipes;
         var birdBoundingBox = this._birdLayer.bird.getRealBoundingBox();
 
+        // check ground collision
+        if (cc.rectIntersectsRect(birdBoundingBox,this._groundLayer.grs[0].getBoundingBoxToWorld())
+            || cc.rectIntersectsRect(birdBoundingBox,this._groundLayer.grs[1].getBoundingBoxToWorld())) {
+            Game.contr.gameOver = true;
+            return;
+        }
+
         // check pipe collision
         if (Game.contr.skill.powerTime === 0) {
             if(cc.rectIntersectsRect(birdBoundingBox, _pipes[Game.contr.curPipe][0].getBoundingBoxToWorld()) ||
@@ -66,10 +73,6 @@ var GameController = cc.Class.extend({
             currentPipe.runAction(action);
         }
 
-        // check ground collision
-        if (cc.rectIntersectsRect(birdBoundingBox,this._groundLayer.grs[0].getBoundingBoxToWorld())
-            || cc.rectIntersectsRect(birdBoundingBox,this._groundLayer.grs[1].getBoundingBoxToWorld()))
-            Game.contr.gameOver = true;
     },
     checkScore: function() {
         if (this._pipeLayer.pipes[Game.contr.curPipe][0].getPositionX() + this._pipeLayer.pipeWidth < this._birdLayer.bird.getPositionX()) {

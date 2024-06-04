@@ -65,6 +65,11 @@ Game.layers[1].start = function( game ){
 
     function endGame() {
         cc.audioEngine.playEffect(Game.def.audio.hurt_wav, false);
+        var pos = _birdLayer.bird.getPosition();
+        var delay = cc.delayTime(0.2);
+        var moveDown = cc.moveTo((pos.y + 30) / 200 * 0.5, pos.x, -30);
+        var sequence = cc.sequence(delay, moveDown);
+        _birdLayer.bird.runAction(sequence);
         _labelLayer.endLabel.setString("Game Over\nScore: " + Game.contr.score + "\nPress Enter to play again");
         _labelLayer.endLabel.setVisible(true);
         Game.contr.gameState = Game.def.gameState.Ended;
