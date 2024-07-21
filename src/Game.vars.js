@@ -60,11 +60,11 @@ gameDefine = {
         dashY: 100,
         powerY: 150,
     },
-    countdownTime: 2,
+    countdownTime: 3,
     skill: {
-        initDashCD: 2,
+        initDashCD: 3,
         initDashTime: 0.1,
-        initPowerCD: 2,
+        initPowerCD: 15,
         initPowerTime: 5,
     },
     audio: {

@@ -14,6 +14,7 @@ var GameController = cc.Class.extend({
     onEnterPressed: function() {
         if (gameVariable.gameState === gameDefine.gameState.Waiting) {
             this._labelLayer.removeChildByTag("startLabel");
+            cc.audioEngine.resumeMusic();
             this.enterCounting();
         }
         else if (gameVariable.gameState === gameDefine.gameState.Ended) {

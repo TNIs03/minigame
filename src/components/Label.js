@@ -14,7 +14,9 @@ var LabelLayer = cc.Layer.extend({
         this.countingLabel = new Label("", 32, winSize, "countingLabel", "center", false);
         this.addChild(this.countingLabel, 0);
 
-        this.startLabel = new Label("Press Enter to start", 32, winSize, "startLabel", "center", true);
+        this.startLabel = new Label("Press Enter to start\n\n\n\nInstruction:\nJump: W/Up Arrow\n" +
+            "Dash: D/Right Arrow\nPower: A/Left Arrow\nPause: P", 32, winSize, "startLabel", "center", true);
+        this.startLabel.setPositionY(winSize.height / 2);
         this.addChild(this.startLabel, 0);
 
         this.scoreLabel = new Label("0", 32, winSize, "scoreLabel", "topleft", false);
