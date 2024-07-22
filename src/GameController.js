@@ -105,6 +105,7 @@ var GameController = cc.Class.extend({
     resetState: function () {
         gameVariable.velocityY = 0;
         gameVariable.velocityX = gameDefine.bird.initVelocityX;
+        gameVariable.curPipe = 0;
         gameVariable.score = 0;
         gameVariable.gameOver = false;
         this._pipeLayer.reset();
